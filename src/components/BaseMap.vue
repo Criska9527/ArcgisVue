@@ -2,7 +2,7 @@
  * @Author: 周祥毅
  * @Date: 2020-03-04 18:06:59
  * @LastEditors: 周祥毅
- * @LastEditTime: 2020-03-04 19:21:32
+ * @LastEditTime: 2020-03-05 14:26:13
  * @Description: 底图类的组件（用于加载arcgis地图类和底图的显示）
  -->
 <template>
@@ -26,7 +26,7 @@
         },
         methods: {
             initBaseMap() {
-                console.log(111)
+                
                 this.BaseMap.initMap('map', this.maptype)
             }
         }

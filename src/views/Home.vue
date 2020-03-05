@@ -2,7 +2,7 @@
  * @Author: 周祥毅
  * @Date: 2020-03-02 17:09:27
  * @LastEditors: 周祥毅
- * @LastEditTime: 2020-03-04 19:36:00
+ * @LastEditTime: 2020-03-05 11:11:48
  * @Description: 
  -->
 <template>
@@ -13,6 +13,8 @@
     <base-map></base-map>
     <!-- 地图工具组件 -->
     <map-tool></map-tool>
+    <!-- 基础信息组件 -->
+    <base-info></base-info>
 
   </div>
 </template>
@@ -22,12 +24,14 @@
 import NavBar from "@/views/Navbar.vue";
 import BaseMap from "@/components/BaseMap.vue";
 import MapTool from "@/components/MapTool.vue";
+import BaseInfo from "@/components/BaseInfo.vue";
 export default {
   name: "Home",
   components: {
     NavBar,
     BaseMap,
-    MapTool
+    MapTool,
+    BaseInfo
   }
 };
 </script>

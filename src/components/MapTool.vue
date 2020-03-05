@@ -2,7 +2,7 @@
  * @Author: 周祥毅
  * @Date: 2020-03-04 19:25:19
  * @LastEditors: 周祥毅
- * @LastEditTime: 2020-03-04 19:55:39
+ * @LastEditTime: 2020-03-05 18:25:06
  * @Description: 
  -->
 <template>
@@ -65,6 +65,7 @@
                     this.BaseMap.MapZoom('in')
                 } else if (type === "定位") {
                     this.BaseMap.GaodePos()
+                    
                 } else {
                     this.BaseMap.ClearMaptool()
                 }
@@ -77,15 +78,14 @@
     .mapUntool {
         position: absolute;
         right: 10px;
-        top: 20px;
+        top: 100px;
         border-radius: 5px;
         cursor: pointer;
         background-color: rgb(84, 92, 100);
 
         ul {
             cursor: pointer;
-            display: flex;
-
+            
             li {
                 cursor: pointer;
                 font-size: 18px;

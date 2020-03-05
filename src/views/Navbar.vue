@@ -2,7 +2,7 @@
  * @Author: 周祥毅
  * @Date: 2020-03-02 17:33:27
  * @LastEditors: 周祥毅
- * @LastEditTime: 2020-03-04 19:21:13
+ * @LastEditTime: 2020-03-05 19:08:09
  * @Description: 导航组件
  -->
 <template>
@@ -27,7 +27,7 @@
           <span slot="title">{{item.name}}</span>
         </template>
         <el-menu-item v-for="(sonitem,i) in item.children" :key="i" :index="sonitem.index">
-          <span slot="title">{{sonitem.name}}</span>
+          <span slot="title" @click="listclick(sonitem.name)">{{sonitem.name}}</span>
         </el-menu-item>
       </el-submenu>
     </el-menu>
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { mapconfig } from '@/assets/config/mapconfig.js'
+import { mapState } from 'vuex'
 export default {
   name: "Navbar",
   data() {
@@ -46,7 +48,7 @@ export default {
           index: "1",
           children: [
             {
-              name: "点位添加",
+              name: "点位添加(周边设施)",
               index: "1-1"
             },
             {
@@ -99,13 +101,47 @@ export default {
       isCollapse: true
     };
   },
+  computed:{
+    ...mapState(['posinfomation'])
+  },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      
+    },
+    listclick(type){
+      if(type==='点位添加(周边设施)'){
+         //此处模拟查询周边所有的
+         const url = mapconfig.dataUrl.around
+         this.datafind(
+           url,
+           {
+            key:mapconfig.AmapServeKey,
+            location:`${this.posinfomation.position.lng},${this.posinfomation.position.lat}`,
+            radius:500
+           },
+           'get'
+        ).then((res)=>{
+          console.log(res)
+          let json = []
+          for(const item of res.pois){
+              // json['lon'] = item.location
+              const locarray = item.location.split(",")
+              let singlesjson = {};
+              singlesjson['lon'] = locarray[0],
+              singlesjson['lat'] = locarray[1]
+              json.push(singlesjson)
+          }
+          //此处添加点位
+          this.BaseMap.addPoints('',json)
+
+
+        })
+      }
     }
+    
   }
 };
 </script>
@@ -123,7 +159,7 @@ export default {
   min-height: 200px;
 }
 .content{
-    top: 80px;
+    top: 100px;
     left:5px;
     /* position: fixed; */
     z-index: 1;

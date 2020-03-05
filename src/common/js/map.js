@@ -2,13 +2,16 @@
  * @Author: 周祥毅
  * @Date: 2020-03-04 14:07:53
  * @LastEditors: 周祥毅
- * @LastEditTime: 2020-03-04 19:00:41
+ * @LastEditTime: 2020-03-05 18:25:25
  * @Description: map的主对象
  */
 
 import { mapconfig } from '../../assets/config/mapconfig.js'
 import esriLoader from "esri-loader";
 import options from "../../assets/config/config";
+//导入vuex store实例s
+import store from '@/store/index.js'
+
 
 const option = options.options;
 // console.log(option)
@@ -77,15 +80,7 @@ class BaseMap {
                 console.log(option)
                 _this.map = new Map(divid, {
                     //basemap: "VEC",
-                    extent: new Extent({
-                        "xmin": 111.93219395999999,
-                        "ymin": 35.20473561,
-                        "xmax": 113.61759552,
-                        "ymax": 36.06431094,
-                        // "spatialReference": {
-                        //     "wkid": 4326
-                        // }
-                    }),
+                    extent: new Extent(mapconfig.mapinfo.extend),
                     zoom: 8,
                     sliderStyle: "small",
                     slider: false,
@@ -907,7 +902,7 @@ class BaseMap {
     //定位
     GaodePos() {
         const _this = this
-        esriLoader.loadModules([
+        return esriLoader.loadModules([
             "esri/graphic",
             "esri/geometry/Point",
             "esri/symbols/SimpleMarkerSymbol",
@@ -934,11 +929,13 @@ class BaseMap {
             AMap.plugin(["AMap.Geolocation"], function () {
                 var geolocation = new AMap.Geolocation(options);
 
-                geolocation.getCurrentPosition(function (status, result) {
+                return geolocation.getCurrentPosition(function (status, result) {
 
                     //let maskdom = document.querySelector(".mask");
 
                     if (status == "complete") {
+                              //将位置信息提交到vuex的store中
+                        store.commit("getposinfomation", result);
                         //$(".zandingload").hide();
                         let lon = result.position.lng
                         let lat = result.position.lat
@@ -946,7 +943,7 @@ class BaseMap {
                         // console.log(result)
                         let Posname = result.formattedAddress;
                         _this.map.centerAndZoom([lon, lat], 15);
-                        alert(`您所在的位置为：${Posname}`);
+                        // alert(`您所在的位置为：${Posname}`);
                         //新建Graphic用来存放graphic
                         var GraphicLayer = new GraphicsLayer({ id: 'pos_layer' });
                         //将Graphic存放map中
@@ -957,6 +954,9 @@ class BaseMap {
                         var pictureMarkerSymbol = new PictureMarkerSymbol('/Static/img/loc.png', 23, 23);
                         var pt = new Graphic(newPoint, pictureMarkerSymbol);
                         GraphicLayer.add(pt);
+                       
+                  
+                        
                     }
 
 
