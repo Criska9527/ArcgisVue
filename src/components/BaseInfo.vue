@@ -2,7 +2,7 @@
  * @Author: 周祥毅
  * @Date: 2020-03-05 11:01:41
  * @LastEditors: 周祥毅
- * @LastEditTime: 2020-03-05 18:20:16
+ * @LastEditTime: 2020-03-06 08:36:39
  * @Description: 基本信息组件（城市，天气，logo）
  -->
 <template>
@@ -60,7 +60,6 @@
             setTimeout(async () => {
                 //定位
                 const center = this.map.extent.getCenter()
-                console.log(this.posinfomation)
                 this.city = this.posinfomation.addressComponent.city
                 this.citycode = this.posinfomation.addressComponent.adcode
                 this.citystreet = `${this.posinfomation.addressComponent.district} ${this.posinfomation.addressComponent.street}`

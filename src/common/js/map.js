@@ -2,7 +2,7 @@
  * @Author: 周祥毅
  * @Date: 2020-03-04 14:07:53
  * @LastEditors: 周祥毅
- * @LastEditTime: 2020-03-05 18:25:25
+ * @LastEditTime: 2020-03-06 17:40:46
  * @Description: map的主对象
  */
 
@@ -11,6 +11,15 @@ import esriLoader from "esri-loader";
 import options from "../../assets/config/config";
 //导入vuex store实例s
 import store from '@/store/index.js'
+// 在单独的js文件中使用
+//引入element
+import ElementUI from "element-ui";
+//1.引入vue
+import Vue from 'vue';
+Vue.use(ElementUI) // 使用element-ui
+//2.新创建一个vue实例
+let v = new Vue();
+
 
 
 const option = options.options;
@@ -268,6 +277,16 @@ class BaseMap {
             })
         function layerClick(e) {
 
+            // v.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+            //     dangerouslyUseHTMLString: true
+            //   });
+            store.commit("changedialogVisible", false);
+            store.commit("changedialogVisible", true);
+             //此处传入弹窗基本信息
+            let popinfo = e.graphic.attributes
+            store.commit("changepopinfo", popinfo);
+            // $('.el-dialog').height(2000)
+            return
             let firstenter = true
             //console.log(e)
             //map.setMapCursor("pointer");
@@ -330,6 +349,7 @@ class BaseMap {
 
         }
         function shownamemouse(e) {
+            // console.log(e)
             var graphic = e.graphic;
             var mapPoint = graphic.geometry;
             var attributes = graphic.attributes;
@@ -647,10 +667,11 @@ class BaseMap {
 
                 //如果不是html覆盖物就设置默认点位样式
                 r.symbol = new PictureMarkerSymbol({
-                    url: `${mapconfig.siteurl}/Static/img/pwk.png`,
+                    url: `${process.env.BASE_URL}img/ico-qsk.png`,
                     width: 24,
                     height: 24
                 });
+                console.log(`${process.env.BASE_URL}img/pwk.png`)
             }
 
         } catch (e) {
