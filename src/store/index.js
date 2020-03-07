@@ -14,7 +14,9 @@ export default new Vuex.Store({
   state: {
     posinfomation:null,
     popinfo:null,
-    dialogVisible:false
+    dialogVisible:false,
+    map:null,
+    panelid:null
   },
   mutations: {
     getposinfomation (state, payload) {
@@ -25,11 +27,20 @@ export default new Vuex.Store({
     },
     changepopinfo(state, payload){
       state.popinfo = payload
+    },
+    updatepanelid(state, payload){
+      state.panelid = payload
+    },
+    map(state, payload){
+      state.map = payload
     }
   },
   actions: {
     getposinfomation (context, payload) {
       context.commit('getposinfomation',payload)
+    },
+    sendmap(context,map) {
+      context.commit('map',map)
     }
   },
   modules: {

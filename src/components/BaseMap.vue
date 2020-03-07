@@ -10,25 +10,39 @@
         <div id="mapdiv">
             <div id="map"></div>
         </div>
+        <z-map ref="ZMap"></z-map>
     </div>
+    
 </template>
 <script>
-
+    import ZMap from  "@/components/Map.vue";
     export default {
         name: "BaseMap",
         data() {
             return {
-                maptype: "Amap"
+                maptype: "Amap",
+                ZMap:null
             };
         },
+        created(){
+            
+        },
         mounted() {
-            this.initBaseMap()
+            this.ZMap = this.$refs.ZMap;
+            this.initMapVue()
+            //this.initBaseMap()
         },
         methods: {
             initBaseMap() {
                 
                 this.BaseMap.initMap('map', this.maptype)
+            },
+            initMapVue(){
+                 this.ZMap.initMap('map', this.maptype)
             }
+        },
+        components:{
+            ZMap
         }
     };
 </script>

@@ -14,14 +14,15 @@ import store from '@/store/index.js'
 // 在单独的js文件中使用
 //引入element
 import ElementUI from "element-ui";
+import layer from 'vue-layer'
 //1.引入vue
 import Vue from 'vue';
+Vue.prototype.$layer = layer(Vue);
 Vue.use(ElementUI) // 使用element-ui
 //2.新创建一个vue实例
 let v = new Vue();
 
-
-
+import BaseInfo from "@/components/BaseInfo.vue";
 const option = options.options;
 // console.log(option)
 window.FeatureLayer = null
@@ -280,13 +281,27 @@ class BaseMap {
             // v.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
             //     dangerouslyUseHTMLString: true
             //   });
-            store.commit("changedialogVisible", false);
-            store.commit("changedialogVisible", true);
-             //此处传入弹窗基本信息
-            let popinfo = e.graphic.attributes
-            store.commit("changepopinfo", popinfo);
+            // store.commit("changedialogVisible", false);
+            // store.commit("changedialogVisible", true);
+            //  //此处传入弹窗基本信息
+            // let popinfo = e.graphic.attributes
+            // store.commit("changepopinfo", popinfo);
             // $('.el-dialog').height(2000)
-            return
+            // v.$layer.alert('888')
+            v.$layer.iframe({
+                content: {
+                  content: BaseInfo, //传递的组件对象
+                  parent: v, //当前的vue对象
+                  data: {} //props
+                },
+                area: ["800px", "600px"],
+                title: "title",
+                cancel: () => {
+                  //关闭事件
+                  alert("关闭iframe");
+                }
+              });
+           
             let firstenter = true
             //console.log(e)
             //map.setMapCursor("pointer");

@@ -23,7 +23,7 @@ module.exports = {
     //配置路径
     chainWebpack: config => {
       config.resolve.alias
-        .set('styles',resolve('src/assets/styl')) // key,value自行定义，比如.set('@@', resolve('src/components'))
+        .set('styles',resolve('src/assets/styles')) // key,value自行定义，比如.set('@@', resolve('src/components'))
     },
     // plugins:[
     //   new webpack.ProvidePlugin({

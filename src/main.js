@@ -12,6 +12,11 @@ import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { BaseMap } from './common/js/map'
+import layer from 'vue-layer'
+import 'vue-layer/lib/vue-layer.css';
+import '@/assets/styles/panle.less'
+import '@/assets/styles/base.less'
+Vue.prototype.$layer = layer(Vue);
 
 //导入数据请求
 import AxiosGetData from './common/js/datafind'

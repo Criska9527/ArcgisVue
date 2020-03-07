@@ -3,7 +3,7 @@
  * @Date: 2020-03-04 19:25:19
  * @LastEditors: 周祥毅
  * @LastEditTime: 2020-03-05 18:25:06
- * @Description: 
+ * @Description: 地图小工具组件
  -->
 <template>
     <div>
@@ -14,10 +14,11 @@
                     :title="item.title" @click="maptoolclick(item.title,$event)"></li>
             </ul>
         </div>
+        <z-map ref="ZMap"></z-map>
     </div>
 </template>
 <script>
-    
+    import ZMap from  "@/components/Map.vue";
     export default {
         name: "MapTool",
         data() {
@@ -48,40 +49,46 @@
                         title: '清除'
                     }
                 ],
+                ZMap:null
             }
         },
         mounted() {
-
+           this.ZMap =  this.$refs.ZMap;
         },
         methods: {
             maptoolclick(type, event) {
                 if (type === '测距') {
-                    this.BaseMap.Measure('measuredistance')
+                     this.ZMap .Measure('measuredistance')
                 } else if (type === "测面积") {
-                    this.BaseMap.Measure('measureArea')
+                     this.ZMap .Measure('measureArea')
                 } else if (type === "放大") {
-                    this.BaseMap.MapZoom('out')
+                     this.ZMap .MapZoom('out')
                 } else if (type === "缩小") {
-                    this.BaseMap.MapZoom('in')
+                    this.ZMap .MapZoom('in')
                 } else if (type === "定位") {
-                    this.BaseMap.GaodePos()
+                     this.ZMap.GaodePos()
                     
                 } else {
-                    this.BaseMap.ClearMaptool()
+                    this.ZMap.ClearMaptool()
                 }
             }
+        },
+        components:{
+            ZMap
         }
 
     }  
 </script>
 <style lang="less" scoped>
+    @import '~styles/mixins.less';
+    @import '~styles/variable.less';
+    
     .mapUntool {
-        position: absolute;
+        .defaultdiv();
         right: 10px;
         top: 100px;
-        border-radius: 5px;
         cursor: pointer;
-        background-color: rgb(84, 92, 100);
+ 
 
         ul {
             cursor: pointer;
@@ -91,13 +98,13 @@
                 font-size: 18px;
                 padding: 7px;
                 border-bottom: 1px solid #b7b5b5;
-                color:white
+                color:@color-text
 
             }
 
             li:hover {
-                background:rgb(67,74,80);
-                color: white;
+                background:@color-background;
+                color: @color-text;
 
             }
 

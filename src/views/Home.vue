@@ -16,26 +16,28 @@
     <!-- 基础信息组件 -->
     <base-info></base-info>
     <!-- 弹出层 -->
-    <panel></panel>
+    <!-- <panel></panel> -->
 
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import NavBar from "@/views/Navbar.vue";
-import BaseMap from "@/components/BaseMap.vue";
-import MapTool from "@/components/MapTool.vue";
-import BaseInfo from "@/components/BaseInfo.vue";
-import Panel from "@/views/Panel.vue";
+
+// import NavBar from "@/views/Navbar.vue";
+// import BaseMap from "@/components/BaseMap.vue";
+// import MapTool from "@/components/MapTool.vue";
+// import BaseInfo from "@/components/BaseInfo.vue";
+
+
 export default {
   name: "Home",
   components: {
-    NavBar,
-    BaseMap,
-    MapTool,
-    BaseInfo,
-    Panel
+    NavBar: () => import("@/views/Navbar.vue"), //异步组件加载方式
+    BaseMap: () => import("@/components/BaseMap.vue"),
+    MapTool: () => import("@/components/MapTool.vue"),
+    BaseInfo:() => import("@/components/BaseInfo.vue"),
+    
   }
 };
 </script>
