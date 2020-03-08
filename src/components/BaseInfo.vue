@@ -58,7 +58,7 @@ export default {
         console.log(center)
        
 
-    }, 600);
+    }, 1000);
     setTimeout(async () => {
       //定位
     //    const MapMain = this.$refs.MapMain;

@@ -22,16 +22,16 @@ var mapconfig = {
     "AmapKey": '74fa0b0f559ed138632e08c52f1a9ed9',
     "AmapServeKey": '81af61859f5b6da6697c6bab81173795',
     mapinfo:{
-        // extend:{
-        //     "xmin": 111.93219395999999,
-        //     "ymin": 35.20473561,
-        //     "xmax": 113.61759552,
-        //     "ymax": 36.06431094,
-        //     // "spatialReference": {
-        //     //     "wkid": 4326
-        //     // }
-        // }
-        extend:''
+        extend:{
+            "xmin": 111.93219395999999,
+            "ymin": 35.20473561,
+            "xmax": 113.61759552,
+            "ymax": 36.06431094,
+            // "spatialReference": {
+            //     "wkid": 4326
+            // }
+        }
+        // extend:''
         
     },
     //地图服务地址
