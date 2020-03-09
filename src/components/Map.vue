@@ -1029,7 +1029,9 @@ export default {
           //将GraphicLayer添加到地图
 
           _this.map.addLayer(ReserveLayer, 50);
-
+          ReserveLayer.on('click', function (evt) {
+                    checklayerClicks(evt, mapconfig['layers'][type]['Fields']);
+          });
           function checklayerClicks(evt, Fields) {
             esriLoader
               .loadModules(

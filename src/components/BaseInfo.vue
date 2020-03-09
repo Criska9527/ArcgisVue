@@ -11,10 +11,10 @@
       <li>
         <img :src="picUrl" alt />
       </li>
-      <li class="city">{{citystreet}}</li>
+      <li class="city">{{basecitystreet}}</li>
       <li>
-        <div class="weature">{{weather.weather}}</div>
-        <div>{{weather.temperature}}℃</div>
+        <div class="weature">{{baseweature}}</div>
+        <div>{{basetemperature}}℃</div>
       </li>
     </ul>
     <z-map ref="ZMap"></z-map >
@@ -39,12 +39,35 @@ export default {
       weather: "",
       temperature: ""
       },
-      ZMap:null
+      ZMap:null,
+      basecity:null,
+      basecitycode:null,
+      basecitystreet:null,
+      baseweature:null,
+      basetemperature:null
+
     };
   },
   watch: {},
   computed: {
     ...mapState(["posinfomation","map"])
+  },
+  watch:{
+    city(val){
+      this.basecity = val
+    },
+    citycode(val){
+      this.basecitycode = val
+    },
+    citystreet(val){
+     this.basecitystreet = val
+    },
+    'weather.weather':function(val){
+      this.baseweature = val
+    },
+    'weather.temperature':function(val){
+      this.basetemperature = val
+    }
   },
   mounted() {
     this.ZMap =  this.$refs.ZMap;
@@ -58,7 +81,7 @@ export default {
         console.log(center)
        
 
-    }, 1000);
+    }, 800);
     setTimeout(async () => {
       //定位
     //    const MapMain = this.$refs.MapMain;
@@ -69,7 +92,7 @@ export default {
       this.citystreet = `${this.posinfomation.addressComponent.district} ${this.posinfomation.addressComponent.street}`;
       //天气查询
       this.GetWeature();
-    }, 1200);
+    }, 1500);
   
 
 

@@ -19,7 +19,7 @@
       :collapse="isCollapse"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b"
+      active-text-color="#fff"
     >
       <el-submenu v-for="(item,i) in list" :key="i" :index="item.index">
         <template slot="title">
@@ -58,17 +58,7 @@ export default {
             },
             {
               name: "图层添加",
-              index: "1-2",
-              children: [
-                {
-                  name: "FeatureLayer的添加",
-                  index: "1-2-1"
-                },
-                {
-                  name: "动态图的添加",
-                  index: "1-2-2"
-                }
-              ]
+              index: "1-2"
             }
           ]
         },
@@ -137,8 +127,8 @@ export default {
             // json['lon'] = item.location
             const locarray = item.location.split(",");
             let singlesjson = {};
-            singlesjson["lon"] = locarray[0],
-            singlesjson["lat"] = locarray[1];
+            (singlesjson["lon"] = locarray[0]),
+              (singlesjson["lat"] = locarray[1]);
             singlesjson["p_name"] = item["name"];
             singlesjson["p_id"] = item["id"];
             singlesjson["p_type"] = item["type"];
@@ -146,7 +136,9 @@ export default {
             singlesjson["address"] = item["address"];
             singlesjson["photos"] = item["photos"];
             singlesjson["biz_ext"] = item["biz_ext"];
-           
+            singlesjson["tel"] = item["tel"];
+            singlesjson["distance"] = item["distance"];
+
             json.push(singlesjson);
           }
           let popWindowParam = {
@@ -158,6 +150,12 @@ export default {
           this.ZMap.addPoints("vuepoint", json, "vuepoint", popWindowParam);
           //this.BaseMap.addPoints('vuepoint', json,'vuepoint')
           //this.BaseMap.addPoints('water_area', json, 'water_area', popWindowParam)
+        });
+      } else if (type === "图层添加") {
+        this.ZMap.addFeaturelayers("riverline");
+        this.$message({
+          message: "添加成功，图层在晋城哦",
+          type: "success"
         });
       }
     }

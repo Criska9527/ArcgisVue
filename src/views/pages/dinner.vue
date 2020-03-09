@@ -23,6 +23,18 @@
              <li class="name">{{baseinfo.p_name}}</li>
              <li class="address">地址:{{baseinfo.address}}</li>
              <li class="type">类型:{{baseinfo.p_type}}</li>
+             <li class="cost">花费: <span>{{baseinfo.biz_ext.cost|costformat}}</span></li>
+              <li class="rating"><span>评分:</span>
+                <el-rate
+                  v-model="baseinfo.biz_ext.rating"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                  >
+                </el-rate>
+              </li>
+               <li class="tel">电话: <span>{{baseinfo.tel}}</span></li>
+                <li class="tel">距离: <span>{{baseinfo.distance}}米</span></li>
            </ul>
         </div>
       </div>
@@ -58,6 +70,16 @@ export default {
     if(this.baseinfo.photos.length>0){
       this.photos = this.baseinfo.photos
     }
+    //处理评分为数字
+    if(this.baseinfo.biz_ext.rating instanceof Array){
+       this.baseinfo.biz_ext.rating = 0
+    }else{
+      this.baseinfo.biz_ext.rating = Number(this.baseinfo.biz_ext.rating)
+    }
+    //处理电话
+    if(this.baseinfo.tel instanceof Array){
+       this.baseinfo.tel = '-'
+    }
   },
   mounted() {
     
@@ -69,6 +91,15 @@ export default {
     test() {
       console.log(this.pointinfo);
       console.log(88888);
+    }
+  },
+  filters:{
+    costformat(cost){
+        if(cost instanceof Array){
+          return '-'
+        }else{
+          return `¥ ${cost}`
+        }
     }
   }
 };
@@ -96,13 +127,17 @@ export default {
       ul{
         li{
           color: @color-content;
-          font-size: 12px;
-          margin-bottom: 5px;
+          font-size: 14px;
+          margin-bottom: 13px;
         }
         .name{
           color: @color-background;
           font-weight: bold;
-          font-size: 16px;
+          font-size: 18px;
+
+        }
+        .rating{
+          display: flex;
 
         }
         .address{
